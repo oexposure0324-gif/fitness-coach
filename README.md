@@ -21,6 +21,22 @@
 - 體重圖表、腰圍記錄，以及至少兩週資料後的保守調整建議。
 - JSON 匯出與匯入。
 
+## 第二階段：自由記錄（v3）
+
+- **＋ 自訂食物**：輸入「香蕉 1 根」「白飯 150 g」「豆漿 300 ml」等，支援 g、kg、ml、L、顆、個、片、碗、杯、份（另含根、條、塊、包、瓶、盒）。系統依內建參考值估算熱量、蛋白質、碳水、脂肪、纖維；依份數推估的會標示 `Estimated`，有輸入重量時以重量計算。
+- 資料庫沒有的食物（例如火鍋）可自行輸入營養數值，並存到「我的食物」，下次輸入同名稱就能自動計算。
+- 每筆飲食都可「編輯」份量、單位或餐別，營養與今日總計即時重算；也可「刪除」。
+- **午餐／晚餐快速提案**：依當日剩餘熱量與營養素排序，包含自己料理、便利商店、小吃店、自助餐、健康餐；每天組合不同，可「換一個」、整份加入或逐項加入。早餐提案保留。
+- **實際訓練紀錄**：和 AI 計畫分開保存，可記錄有氧（時間、距離、速度、坡度）、重訓（重量、組數、次數）、球類、伸展等，同一天可多筆。每天顯示 Planned／Completed／Modified 狀態與不帶懲罰的活動分析。
+- 首頁新增 Actual Workout、快速提案、今日飲食分析（晚上 7 點後為完整總結）；進度頁新增近 7 天實際活動統計。
+
+### 資料結構（儲存在瀏覽器 localStorage，向下相容）
+
+- 飲食紀錄（FoodLog）：`days[日期].meals[餐別][]`，新增欄位 `origin`（AI_RECOMMENDED／USER_ADDED／DATABASE）、`confidence`（HIGH／MEDIUM／LOW／ESTIMATED）、`basis`、`createdAt`、`updatedAt`。
+- 實際運動（WorkoutLog）：`days[日期].workoutLogs[]`，欄位 `id, date, name, type, period, duration, distance, speed, incline, weight, sets, reps, calories, notes, source（USER_LOGGED／MODIFIED）, createdAt, updatedAt`。
+- AI 計畫動作紀錄維持在原本的 `days[日期].exercises`（AI_PLANNED），不和實際紀錄混在一起。
+- 舊版資料不需轉換，原有設定、歷史飲食與訓練全部保留。
+
 ## 資料與教練建議
 
 內建常見食物的數值是參考估算，均標示 `ESTIMATE`；只有你確認來自包裝或店家標示時才選 `FACT`。資料會隨品牌、份量和烹調方式改變。餐廳資料需要自行新增，系統不會假裝知道未提供的菜單或營養資訊。
