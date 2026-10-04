@@ -1,0 +1,12 @@
+{
+  "name": "日常教練｜個人飲食與訓練",
+  "short_name": "日常教練",
+  "description": "用自己的步調，記錄飲食、訓練與體態變化。",
+  "lang": "zh-Hant",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f7f4",
+  "theme_color": "#f6f7f4",
+  "icons": [{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}

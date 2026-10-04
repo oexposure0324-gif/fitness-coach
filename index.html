@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f7f4">
+  <meta name="description" content="個人飲食與訓練紀錄教練，支援手機使用及本機儲存。">
+  <title>日常教練｜飲食與訓練</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css?v=2">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#today" aria-label="日常教練首頁">
+        <span class="brand-mark">✳</span><span>日常教練<small>FITNESS, AT YOUR PACE</small></span>
+      </a>
+      <nav class="side-nav" aria-label="主要功能">
+        <button data-route="today" class="nav-item active"><span class="nav-icon">◷</span>今日總覽</button>
+        <button data-route="food" class="nav-item"><span class="nav-icon">◉</span>飲食紀錄</button>
+        <button data-route="workout" class="nav-item"><span class="nav-icon">⌁</span>訓練計畫</button>
+        <button data-route="progress" class="nav-item"><span class="nav-icon">↗</span>進度追蹤</button>
+        <button data-route="settings" class="nav-item"><span class="nav-icon">⚙</span>個人設定</button>
+      </nav>
+      <div class="sidebar-note"><span class="note-dot"></span>所有紀錄儲存在這台裝置</div>
+      <button class="profile-chip" data-route="settings"><span class="avatar">U</span><span><strong>我的計畫</strong><small>重組體態・新手階段</small></span><span class="more">···</span></button>
+    </aside>
+
+    <div class="main-column">
+      <header class="topbar">
+        <div class="topbar-mobile-brand"><span class="brand-mark">✳</span> 日常教練</div>
+        <div class="topbar-spacer"></div>
+        <label class="date-picker"><span>日期</span><input id="selected-date" type="date" aria-label="選擇紀錄日期"></label>
+        <button class="icon-button help-button" data-action="help" aria-label="使用說明">?</button>
+      </header>
+      <main id="view" class="view" tabindex="-1"></main>
+      <footer class="app-footer">照顧好今天，進步自然會累積。<span>資料僅存於本機瀏覽器</span></footer>
+    </div>
+  </div>
+  <nav class="bottom-nav" aria-label="手機主要功能">
+    <button data-route="today" class="active"><span>◷</span>今天</button>
+    <button data-route="food"><span>◉</span>飲食</button>
+    <button data-route="workout"><span>⌁</span>訓練</button>
+    <button data-route="progress"><span>↗</span>進度</button>
+    <button data-route="settings"><span>⚙</span>設定</button>
+  </nav>
+  <div id="overlay-root"></div>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js?v=2"></script>
+  <script>
+    if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+    }
+  </script>
+</body>
+</html>
